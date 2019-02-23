@@ -61,4 +61,23 @@
     <Folder Include="Scripts" />
     <Folder Include="Publish" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Course.sql" />
+    <Build Include="Tables\CourseStudent.sql" />
+    <Build Include="Tables\SubjectLevel.sql" />
+    <Build Include="Tables\StudentAvailability.sql" />
+    <Build Include="Tables\StudentCareer.sql" />
+    <Build Include="Tables\Career.sql" />
+    <Build Include="Tables\Student.sql" />
+    <Build Include="Tables\Instructor.sql" />
+    <Build Include="Tables\Period.sql" />
+    <Build Include="Tables\Report.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="StlCollegePrepDatabase.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Publish\localhost.publish.xml" />
+    <None Include="Scripts\SeedData.sql" />
+  </ItemGroup>
 </Project>
