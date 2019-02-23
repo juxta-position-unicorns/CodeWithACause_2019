@@ -1,0 +1,7 @@
+﻿-- Period
+
+-- SubjectLevel
+
+-- Instuctor
+
+-- Course
