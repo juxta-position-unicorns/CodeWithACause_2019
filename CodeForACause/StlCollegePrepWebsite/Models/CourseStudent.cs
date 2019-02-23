@@ -18,5 +18,9 @@ namespace StlCollegePrepWebsite.Models
 
         public int? AcademicYear { get; set; }
         public double? AwardedGrade { get; set; }
+
+        // Navigation properties
+        public virtual Course Course { get; set; }
+        public virtual Student Student { get; set; }
     }
 }

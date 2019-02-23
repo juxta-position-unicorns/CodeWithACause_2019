@@ -18,16 +18,11 @@ namespace StlCollegePrepWebsite.Models
 
         [Required]
         public string Subject { get; set; }
-
-        [Required]
         public int Level { get; set; }
-
-        [Required]
-        public double CreditHours { get; set; }
-
+        public float? CreditHours { get; set; }
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
-        public int Year { get; set; }
+        public int? Year { get; set; }
         public string Semester { get; set; }
     }
 }
