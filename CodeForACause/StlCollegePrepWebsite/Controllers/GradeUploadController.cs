@@ -36,6 +36,8 @@ namespace StlCollegePrepWebsite.Controllers
                 string extension = Path.GetExtension(postedFile.FileName);
                 postedFile.SaveAs(filePath);
 
+                //var periods = db.Periods.ToList();
+
                 //Read the contents of CSV file.
                 using (StreamReader sr = new StreamReader(filePath))
                 {
@@ -43,26 +45,35 @@ namespace StlCollegePrepWebsite.Controllers
                     // currentLine will be null when the StreamReader reaches the end of file
                     while ((currentLine = sr.ReadLine()) != null)
                     {
-                        students.Add(new Student
+                        string[] tokens = currentLine.Split(',');
+                        var student = new Student
                         {
                             //UserId = studentId,
 
-                            LastName = currentLine.Split(',')[0],
-                            FirstName = currentLine.Split(',')[1],
-                            StudentNumber = currentLine.Split(',')[2],
-                        });
+                            LastName = tokens[0],
+                            FirstName = tokens[1],
+                            StudentNumber = tokens[2],
+                        };
+                        var course = new Course
+                        {
+                            CourseName = tokens[4],
+                            PeriodName = tokens[5],
+                            Semester = "", //pull in from View
+                            Year = 0, //pull in from View
+                        }; 
+                        students.Add(student);
 
                         courseStudents.Add(new CourseStudent
                         {
                             //CourseId = courseId,
                             //StudentId = studentId,
-
-                            AwardedGrade = Convert.ToDouble(currentLine.Split(',')[5]),
+                            Student = student,
+                            Course = course,
+                            AwardedGrade = Convert.ToDouble(tokens[5]),
                         });
                     }
                 }
             }
-
             return View(students);
         }
 

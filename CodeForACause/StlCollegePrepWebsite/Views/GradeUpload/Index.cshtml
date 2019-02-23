@@ -1,78 +1,82 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "GradeUpload";
 }
 
 <h2>Index</h2>
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "GradeUpload", FormMethod.Post,
+            new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Student</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-		<input type="text" name="year"><br><br>
-		  
-		<select>
-			<option value="Fall">Fall</option>
-			<option value="Spring">Spring</option>
-			<option value="Summer">Summer</option>
-		</select><br><br>
+<div class="form-horizontal">
+    <h4>Student</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-		<input type="text" name="csvFile">
-		<button type="button">Browse</button><br><br>
+    <label for="year">Year</label>
+    <!--Grab Value for controller-->
+    <input type="text" name="year"><br><br>
 
-		<button type="button">Upload</button>
-    </div>
+    <label for="semester">Semester</label>
+    <select>
+        <option disabled selected value> -- select an option -- </option>
+        <option value="Fall">Fall</option>
+        <option value="Spring">Spring</option>
+        <option value="Summer">Summer</option>
+    </select><br><br>
 
-	<br>
-	
-	<table class="table">
-		<tr>
-			<th>
-				Student Last Name
-			</th>
-			<th>
-				Student First Name
-			</th>
-			<th>
-				Student Number
-			</th>
-			<th>
-				Class Description
-			</th>
-			<th>
-				Grading Period Description 
-			</th>
-			<th>
-				Final Grade
-			</th>
-			<th></th>
-		</tr>
+    <label for="csv">CSV File</label>
+    <input type="text" name="fileName" value="csvFile" readonly>
+    <input type="file" name="csvFile"><br />
 
-		<tr>
-			<td>
-				students.LastName
-			</td>			
-			<td>
-				students.FirstName
-			</td>
-			<td>
-				students.StudentNumber
-			</td>
-			<td>
-				courseStudents.ClassDescription
-			</td>
-			<td>
-				period.Semester
-			</td>
-			<td>
-				courseStudents.AwardedGrade
-			</td>
-		</tr>
-	</table>
+    <button type="button">Upload</button>
+</div>
+
+    <br>
+
+    <table class="table">
+        <tr>
+            <th>
+                Student Last Name
+            </th>
+            <th>
+                Student First Name
+            </th>
+            <th>
+                Student Number
+            </th>
+            <th>
+                Class Description
+            </th>
+            <th>
+                Grading Period Description
+            </th>
+            <th>
+                Final Grade
+            </th>
+            <th></th>
+        </tr>
+
+        <tr>
+            <td>
+                students.LastName
+            </td>
+            <td>
+                students.FirstName
+            </td>
+            <td>
+                students.StudentNumber
+            </td>
+            <td>
+                courseStudents.ClassDescription
+            </td>
+            <td>
+                period.Semester
+            </td>
+            <td>
+                courseStudents.AwardedGrade
+            </td>
+        </tr>
+    </table>
 }
