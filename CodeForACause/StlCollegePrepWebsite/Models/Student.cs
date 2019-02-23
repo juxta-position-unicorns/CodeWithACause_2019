@@ -23,5 +23,10 @@ namespace StlCollegePrepWebsite.Models
         public string LastName { get; set; }
 
         public string SchoolName { get; set; }
+
+        public bool? IEP { get; set; }
+
+        [Display(Name = "Graduate By")]
+        public string GraduateBy { get; set; }
     }
 }
