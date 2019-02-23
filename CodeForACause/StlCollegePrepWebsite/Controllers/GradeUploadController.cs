@@ -19,7 +19,7 @@ namespace StlCollegePrepWebsite.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(HttpPostedFileBase postedFile)
+        public ActionResult Index(int year, string semester, HttpPostedFileBase postedFile)
         {
             List<Student> students = new List<Student>();
             List<CourseStudent> courseStudents = new List<CourseStudent>();
@@ -56,10 +56,10 @@ namespace StlCollegePrepWebsite.Controllers
                         };
                         var course = new Course
                         {
-                            CourseName = tokens[4],
-                            PeriodName = tokens[5],
-                            Semester = "", //pull in from View
-                            Year = 0, //pull in from View
+                            CourseName = tokens[3],
+                            PeriodName = tokens[4],
+                            Semester = semester,
+                            Year = year,
                         }; 
                         students.Add(student);
 
@@ -69,10 +69,12 @@ namespace StlCollegePrepWebsite.Controllers
                             //StudentId = studentId,
                             Student = student,
                             Course = course,
-                            AwardedGrade = Convert.ToDouble(tokens[5]),
+                            //AwardedGrade = Convert.ToDouble(tokens[5]),
                         });
                     }
                 }
+
+
             }
             return View(students);
         }
