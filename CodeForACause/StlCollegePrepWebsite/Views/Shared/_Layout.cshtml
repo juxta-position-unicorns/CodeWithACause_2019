@@ -6,10 +6,10 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+        
 </head>
 <body>
-    <div class="navbar navbar-fixed-top fixed-top navbar-expand-md navbar-light bg-light">
+    <div class="navbar navbar-fixed-top fixed-top navbar-expand-md navbar-dark bg-dark">
         <div class="container">
             <div class="navbar-header">
                 <button type="button"
@@ -30,15 +30,7 @@
                     <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", new { @class = "nav-link" })</li>
                 </ul>
-                @using (Html.BeginForm("Index", "Products", FormMethod.Get,
-                        new { @class = "form-inline navbar-form navbar-left" }))
-                {
-                    <div class="form-group">
-                        @Html.TextBox("Search", null,
-                        new { @class = "form-control", @placeholder = "Search" })
-                    </div>
-                    <button type="submit" class="btn btn-outline-secondary">Search</button>
-                }
+                
 
                 @Html.Partial("_LoginPartial")
             </div>
