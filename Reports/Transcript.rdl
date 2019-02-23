@@ -106,6 +106,38 @@ WHERE Student.UserId = @StudentId</CommandText>
         </Field>
       </Fields>
     </DataSet>
+    <DataSet Name="Students">
+      <SharedDataSet>
+        <SharedDataSetReference>/StlCollegePrep/DataSet_Students</SharedDataSetReference>
+        <rd:ReportServerUrl>http://localhost/ReportServer</rd:ReportServerUrl>
+      </SharedDataSet>
+      <Fields>
+        <Field Name="UserId">
+          <DataField>UserId</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FirstName">
+          <DataField>FirstName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LastName">
+          <DataField>LastName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StudentNumber">
+          <DataField>StudentNumber</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SchoolName">
+          <DataField>SchoolName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Summary">
+          <DataField>Summary</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
   </DataSets>
   <ReportSections>
     <ReportSection>
@@ -1118,13 +1150,15 @@ WHERE Student.UserId = @StudentId</CommandText>
   <ReportParameters>
     <ReportParameter Name="StudentId">
       <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>1</Value>
-        </Values>
-      </DefaultValue>
       <AllowBlank>true</AllowBlank>
       <Prompt>Student</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Students</DataSetName>
+          <ValueField>UserId</ValueField>
+          <LabelField>Summary</LabelField>
+        </DataSetReference>
+      </ValidValues>
     </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>

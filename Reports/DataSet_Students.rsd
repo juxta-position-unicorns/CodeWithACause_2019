@@ -9,19 +9,12 @@
   ,Student.LastName
   ,Student.StudentNumber
   ,Student.SchoolName
+  ,CONCAT(LastName, ', ', FirstName, ' (', SchoolName, ' ', StudentNumber, ')') AS Summary
 FROM
-  Student</CommandText>
-      <rd:DesignerState>
-        <QueryDefinition xmlns="http://schemas.microsoft.com/ReportingServices/QueryDefinition/Relational">
-          <SelectedColumns>
-            <ColumnExpression ColumnOwner="Student" ColumnName="UserId" />
-            <ColumnExpression ColumnOwner="Student" ColumnName="FirstName" />
-            <ColumnExpression ColumnOwner="Student" ColumnName="LastName" />
-            <ColumnExpression ColumnOwner="Student" ColumnName="StudentNumber" />
-            <ColumnExpression ColumnOwner="Student" ColumnName="SchoolName" />
-          </SelectedColumns>
-        </QueryDefinition>
-      </rd:DesignerState>
+  Student
+ORDER BY 
+  LastName, FirstName, SchoolName, StudentNumber</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
     </Query>
     <Fields>
       <Field Name="UserId">
@@ -42,6 +35,10 @@ FROM
       </Field>
       <Field Name="SchoolName">
         <DataField>SchoolName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Summary">
+        <DataField>Summary</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
     </Fields>
