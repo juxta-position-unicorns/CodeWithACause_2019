@@ -1,5 +1,5 @@
-﻿@model IEnumerable<StlCollegePrepWebsite.Models.Course>
-
+﻿@model StlCollegePrepWebsite.Models.CourseSearchResults
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Course List";
 }
@@ -7,7 +7,15 @@
 <h2>@ViewBag.Title</h2>
 @using (Html.BeginForm("Index", "Course", FormMethod.Get))
 {
-    //var subjects = new SelectList(Model.)
+    var periods = new SelectList(Model.Periods, "PeriodName");
+    var instructors = new SelectList(Model.Instructors, "UserId");
+
+    <div class="mb-3">
+        @Html.EditorFor(x => x.Search, new { htmlAttributes = new { placeholder = "Search" } })
+        @Html.DropDownListFor(x => x.Period, periods, "(ALL)");
+        @Html.DropDownListFor(x => x.InstructorId, instructors, "(ALL)");
+    </div>
+    
 }
 
 @*<p>
@@ -39,38 +47,31 @@
 
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Results) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CourseName)
+            @Html.DisplayFor(modelItem => item.CourseId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.InstructorId)
+            @Html.DisplayFor(modelItem => item.Semester)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Subject)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Level)
+            @Html.DisplayFor(modelItem => item.CourseName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.StartTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PeriodName)
-        </td>
+            @Html.DisplayFor(modelItem => item.InstructorId)
+        </td> 
         <td>
             @Html.DisplayFor(modelItem => item.CreditHours)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Year)
+            @Html.DisplayFor(modelItem => item.PeriodName)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Semester)
-        </td>
+        
+        
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.CourseId }) |
             @Html.ActionLink("Details", "Details", new { id = item.CourseId }) |
