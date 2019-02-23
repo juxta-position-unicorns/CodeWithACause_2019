@@ -76,5 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Publish\localhost.publish.xml" />
+    <None Include="Scripts\SeedData.sql" />
   </ItemGroup>
 </Project>
