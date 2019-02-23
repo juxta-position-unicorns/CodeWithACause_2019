@@ -2,7 +2,7 @@
 (
     [CourseId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY, 
     [InstructorId] NVARCHAR(128) NULL, 
-    [CourseName] NVARCHAR(30) NOT NULL,
+    [CourseName] NVARCHAR(100) NOT NULL,
     [Subject] VARCHAR(30) NULL, 
     [Level] INT NULL, 
     [CreditHours] FLOAT NULL, 

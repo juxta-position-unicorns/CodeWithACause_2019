@@ -35,55 +35,59 @@
         <div>
             <label for="csv">CSV File</label>
             <input type="file" name="PostedFile">
-            <br/>@Html.ValidationMessageFor(m => m.PostedFile)
+            <br />@Html.ValidationMessageFor(m => m.PostedFile)
         </div>
 
         <button type="submit">Upload</button>
     </div>
+}
 
-    <div>
-        CSV files must be in the following format
-    </div>
-    <table class="table">
-        <tr>
-            <th>
-                Student Last Name
-            </th>
-            <th>
-                Student First Name
-            </th>
-            <th>
-                Student Number
-            </th>
-            <th>
-                Class Description
-            </th>
-            <th>
-                Grading Period Description
-            </th>
-            <th>
-                Final Grade
-            </th>
-        </tr>
-        <tr>
-            <td>
-                Doe
-            </td>
-            <td>
-                John
-            </td>
-            <td>
-                1234
-            </td>
-            <td>
-                Geometry A
-            </td>
-            <td>
-                Q2
-            </td>
-            <td>
-                2.14
-            </td>
-        </tr>
-    </table>
-    }
+<h2>CSV files must be in the following format</h2>
+<table class="table">
+    <tr>
+        <th>
+            Student Last Name
+        </th>
+        <th>
+            Student First Name
+        </th>
+        <th>
+            Student Number
+        </th>
+        <th>
+            Class Description
+        </th>
+        <th>
+            Grading Period Description
+        </th>
+        <th>
+            Final Grade
+        </th>
+    </tr>
+    <tr>
+        <td>
+            Doe
+        </td>
+        <td>
+            John
+        </td>
+        <td>
+            1234
+        </td>
+        <td>
+            Geometry A
+        </td>
+        <td>
+            Q2
+        </td>
+        <td>
+            2.14
+        </td>
+    </tr>
+</table>
+
+@if (Model.Duplicates.Any())
+{
+    <h2>Duplicate Rows</h2>
+    <span>@String.Join(", ", Model.Duplicates.ToArray())</span>
+}

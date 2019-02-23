@@ -14,6 +14,7 @@ namespace StlCollegePrepWebsite.Controllers
 
         private class StudentGrade
         {
+            public int RowNumber { get; set; }
             public string RecordId { get; set; }
             public string LastName { get; set; }
             public string FirstName { get; set; }
@@ -55,16 +56,18 @@ namespace StlCollegePrepWebsite.Controllers
                         string currentLine = sr.ReadLine();
                         if (currentLine != "Student Last Name,Student First Name,Student Number,Class Description,Grading Period Description,Final Grade")
                         {
-                            ModelState.AddModelError("PostedFile", "CSV column headers are not as expected");
-                            return View();
+                            throw new Exception("CSV column headers are not as expected");
                         }
 
                         // currentLine will be null when the StreamReader reaches the end of file
+                        int rowNumber = 1;
                         while ((currentLine = sr.ReadLine()) != null)
                         {
+                            ++rowNumber;
                             string[] tokens = currentLine.Split(',');
                             var grade = new StudentGrade
                             {
+                                RowNumber = rowNumber,
                                 RecordId = Guid.NewGuid().ToString(),
                                 LastName = tokens[0],
                                 FirstName = tokens[1],
@@ -95,6 +98,17 @@ namespace StlCollegePrepWebsite.Controllers
                             courses.Add(course);
                         }
 
+                        viewModel.Duplicates =
+                            grades.GroupBy(x => new { x.StudentNumber, x.FirstName, x.LastName, x.CourseName, x.PeriodName })
+                                  .Where(g => g.Count() > 1)
+                                  .SelectMany(g => g.Select(x => x.RowNumber))
+                                  .OrderBy(x => x)
+                                  .ToList();
+                        if (viewModel.Duplicates.Any())
+                        {
+                            throw new Exception("Duplicate grades in CSV file");
+                        }
+
                         students = students.GroupBy(x => new { x.StudentNumber, x.FirstName, x.LastName }).Select(g => g.FirstOrDefault()).ToList();
                         courses = courses.GroupBy(x => new { x.CourseName, x.PeriodName }).Select(g => g.FirstOrDefault()).ToList();
 
@@ -102,17 +116,17 @@ namespace StlCollegePrepWebsite.Controllers
                         {
                             var courseStudent = new CourseStudent
                             {
-                                StudentId = grade.RecordId,
                                 Student = students.First(x => x.StudentNumber == grade.StudentNumber && x.FirstName == grade.FirstName && x.LastName == grade.LastName),
                                 Course = courses.First(x => x.CourseName == grade.CourseName && x.PeriodName == grade.PeriodName),
                                 AwardedGrade = grade.FinalGrade,
                             };
-                            //_db.CourseStudents.Add(courseStudent);
+                            _db.CourseStudents.Add(courseStudent);
                         }
 
                         _db.Students.AddRange(students);
                         _db.Courses.AddRange(courses);
                         _db.SaveChanges();
+                        return RedirectToAction("Index", "Report");
                     }
                 }
             }
@@ -121,7 +135,7 @@ namespace StlCollegePrepWebsite.Controllers
                 ModelState.AddModelError("PostedFile", ex.Message);
             }
 
-            return View();
+            return View(viewModel);
         }
         
         private bool ValidateFile(string key, HttpPostedFileBase file)

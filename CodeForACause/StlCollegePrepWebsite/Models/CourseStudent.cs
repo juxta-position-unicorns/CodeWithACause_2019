@@ -20,7 +20,9 @@ namespace StlCollegePrepWebsite.Models
         public double? AwardedGrade { get; set; }
 
         // Navigation properties
+        [ForeignKey("CourseId")]
         public virtual Course Course { get; set; }
+        [ForeignKey("StudentId")]
         public virtual Student Student { get; set; }
     }
 }
