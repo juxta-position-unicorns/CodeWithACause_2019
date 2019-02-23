@@ -26,6 +26,7 @@ namespace StlCollegePrepWebsite.Controllers
         public ActionResult Index(int year, string semester, HttpPostedFileBase postedFile)
         {
             List<Student> students = new List<Student>();
+            List<Course> courses = new List<Course>();
 
             if (ValidateFile(postedFile))
             {
@@ -43,14 +44,16 @@ namespace StlCollegePrepWebsite.Controllers
                 //Read the contents of CSV file.
                 using (StreamReader sr = new StreamReader(filePath))
                 {
-                    string currentLine;
+                    string currentLine = sr.ReadLine();
+                    // TODO: check headers
+
                     // currentLine will be null when the StreamReader reaches the end of file
                     while ((currentLine = sr.ReadLine()) != null)
                     {
                         string[] tokens = currentLine.Split(',');
                         var student = new Student
                         {
-                            //UserId = studentId,
+                            UserId = Guid.NewGuid().ToString(),
 
                             LastName = tokens[0],
                             FirstName = tokens[1],
@@ -63,27 +66,31 @@ namespace StlCollegePrepWebsite.Controllers
                             Semester = semester,
                             Year = year,
                         };
-                        students.Add(student);
-
+                        /*
                         var courseStudent = new CourseStudent
                         {
-                            //CourseId = courseId,
-                            //StudentId = studentId,
                             Student = student,
                             Course = course,
                             AwardedGrade = Double.Parse(tokens[5]),
                         };
+                        */
 
-                        _db.Courses.Add(course);
-                        _db.Students.Add(student);
-                        _db.CourseStudents.Add(courseStudent);
+                        students.Add(student);
+                        courses.Add(course);
+
+                        //_db.Courses.Add(course);
+                        //_db.Students.Add(student);
+                        //_db.CourseStudents.Add(courseStudent);
                     
                     }
+
+                    _db.Students.AddRange(students.GroupBy(x => new { x.StudentNumber, x.FirstName, x.LastName }).Select(g => g.FirstOrDefault()));
+                    _db.Courses.AddRange(courses.GroupBy(x => new { x.CourseName, x.PeriodName }).Select(g => g.FirstOrDefault()));
                     _db.SaveChanges();
                 }
             }
 
-            return View(students);
+            return View();
         }
 
         private bool ValidateFile(HttpPostedFileBase file)
