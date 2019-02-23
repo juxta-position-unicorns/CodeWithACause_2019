@@ -17,7 +17,7 @@ namespace StlCollegePrepWebsite.Controllers
         // GET: Report
         public ActionResult Index()
         {
-            return View(db.Reports.ToList());
+            return View(db.Reports.OrderBy(x => x.ReportName).ToList());
         }
 
         // GET: Report/Details/5
@@ -31,6 +31,10 @@ namespace StlCollegePrepWebsite.Controllers
             if (report == null)
             {
                 return HttpNotFound();
+            }
+            if (report.Height == null)
+            {
+                report.Height = 100;
             }
             return View(report);
         }
@@ -52,7 +56,7 @@ namespace StlCollegePrepWebsite.Controllers
             {
                 db.Reports.Add(report);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", routeValues: new { id = report.ReportName });
             }
 
             return View(report);
@@ -84,7 +88,7 @@ namespace StlCollegePrepWebsite.Controllers
             {
                 db.Entry(report).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", routeValues: new { id = report.ReportName });
             }
             return View(report);
         }
