@@ -7,11 +7,11 @@
 <h2>@ViewBag.Title</h2>
 @using (Html.BeginForm("Index", "Course", FormMethod.Get))
 {
-    //var subjects = new SelectList(Model.)
+    var periods = new SelectList(Model.Periods, "PeriodName");
 
     <div class="mb-3">
         @Html.EditorFor(x => x.Search, new { htmlAttributes = new { placeholder = "Search" } })
-
+        @Html.DropDownListFor(x => x.Period, periods, "(ALL)");
     </div>
     
 }

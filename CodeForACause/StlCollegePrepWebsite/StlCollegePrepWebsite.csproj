@@ -206,6 +206,7 @@
     <Compile Include="Models\CourseSearchResults.cs" />
     <Compile Include="Models\CourseStudent.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Instructor.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\CourseDatabase.cs" />
     <Compile Include="Models\Period.cs" />
