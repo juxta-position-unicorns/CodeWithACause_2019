@@ -12,34 +12,43 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.InstructorId)
+            Course Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Subject)
+            Instructor Id
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Level)
+            Subject
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreditHours)
+            Level
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartTime)
+            Start Time
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndTime)
+            End Time
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Year)
+            Period
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Semester)
+            Credit Hours
         </th>
-        <th></th>
+        <th>
+            Year
+        </th>
+        <th>
+            Semester
+        </th>
+
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseName)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.InstructorId)
         </td>
@@ -50,13 +59,16 @@
             @Html.DisplayFor(modelItem => item.Level)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreditHours)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.StartTime)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PeriodName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreditHours)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Year)
@@ -65,9 +77,9 @@
             @Html.DisplayFor(modelItem => item.Semester)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CourseId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CourseId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CourseId })
+            @Html.ActionLink("Edit", "Edit", new { id = item.CourseId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.CourseId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CourseId })
         </td>
     </tr>
 }
