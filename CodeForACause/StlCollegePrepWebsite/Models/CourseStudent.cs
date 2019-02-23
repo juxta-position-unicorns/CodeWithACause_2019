@@ -16,7 +16,7 @@ namespace StlCollegePrepWebsite.Models
         [Key, Column(Order = 1)]
         public string StudentId { get; set; }
 
-        public int AcademicYear { get; set; }
-        public double AwardedGrade { get; set; }
+        public int? AcademicYear { get; set; }
+        public double? AwardedGrade { get; set; }
     }
 }

@@ -16,11 +16,17 @@ namespace StlCollegePrepWebsite.Models
         [ForeignKey("InstructorId")]
         public int InstructorId { get; set; }
 
+        [Required]
         public string Subject { get; set; }
-        public int SubjectLevel { get; set; }
+
+        [Required]
+        public int Level { get; set; }
+
+        [Required]
         public double CreditHours { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
         public int Year { get; set; }
         public string Semester { get; set; }
     }
