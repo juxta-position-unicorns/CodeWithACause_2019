@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StlCollegePrepWebsite.Models;
+using PagedList;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 namespace StlCollegePrepWebsite.Controllers
 {
@@ -15,14 +17,67 @@ namespace StlCollegePrepWebsite.Controllers
         private CourseDatabase db = new CourseDatabase();
 
         // GET: Course
-        public ActionResult Index()
+        public ActionResult Index(
+            string search,
+            string semester,
+            string subject,
+            string period,
+            string instructorId,
+            string sortBy,
+            int? page,
+            int? itemsPerPage
+            )
         {
-            return View(db.Courses.ToList());
+            IQueryable<Course> courses = db.Courses;
+
+            if (!string.IsNullOrWhiteSpace(semester))
+            {
+                string[] tokens = semester.Split(' ');
+                int year = int.Parse(tokens[0]);
+                courses = courses.Where(x => x.Year == year && x.Semester == tokens[1]);
+            }
+            if (!string.IsNullOrWhiteSpace(subject))
+            {
+                courses = courses.Where(x => x.Subject == subject);
+            }
+            if (!string.IsNullOrWhiteSpace(period))
+            {
+                courses = courses.Where(x => x.PeriodName == period);
+            }
+            if (!string.IsNullOrWhiteSpace(instructorId))
+            {
+                courses = courses.Where(x => x.InstructorId == instructorId);
+            }
+            if (!String.IsNullOrWhiteSpace(search))
+            {
+                courses = courses.Where(x => x.CourseName.Contains(search));
+            }
+
+            courses = courses.OrderBy(x => x.CourseName).ThenBy(x => x.CourseId);
+
+            var model = new CourseSearchResults
+            {
+                Search = search,
+                Semester = semester,
+                Subject = subject,
+                Period = period,
+                InstructorId = instructorId,
+                SortBy = sortBy,
+                Results = courses.ToPagedList(page ?? 1, itemsPerPage ?? 25),
+            };
+
+            return View("Index", model);
         }
 
         // GET: Course/Details/5
         public ActionResult Details(int? id)
         {
+
+            //var courseStudentList =
+            //    from c in db.Courses
+            //    join cs in db.CourseStudents on c.CourseId equals cs.CourseId
+            //    join s in db.Students on cs.StudentId equals s.UserId
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
