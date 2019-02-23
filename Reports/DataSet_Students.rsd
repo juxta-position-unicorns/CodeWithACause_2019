@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/StlCollegePrep/DataSource</DataSourceReference>
+      <CommandText>SELECT
+  Student.UserId
+  ,Student.FirstName
+  ,Student.LastName
+  ,Student.StudentNumber
+  ,Student.SchoolName
+FROM
+  Student</CommandText>
+      <rd:DesignerState>
+        <QueryDefinition xmlns="http://schemas.microsoft.com/ReportingServices/QueryDefinition/Relational">
+          <SelectedColumns>
+            <ColumnExpression ColumnOwner="Student" ColumnName="UserId" />
+            <ColumnExpression ColumnOwner="Student" ColumnName="FirstName" />
+            <ColumnExpression ColumnOwner="Student" ColumnName="LastName" />
+            <ColumnExpression ColumnOwner="Student" ColumnName="StudentNumber" />
+            <ColumnExpression ColumnOwner="Student" ColumnName="SchoolName" />
+          </SelectedColumns>
+        </QueryDefinition>
+      </rd:DesignerState>
+    </Query>
+    <Fields>
+      <Field Name="UserId">
+        <DataField>UserId</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="FirstName">
+        <DataField>FirstName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="LastName">
+        <DataField>LastName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="StudentNumber">
+        <DataField>StudentNumber</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="SchoolName">
+        <DataField>SchoolName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://localhost/ReportServer</rd:ReportServerUrl>
+</SharedDataSet>
