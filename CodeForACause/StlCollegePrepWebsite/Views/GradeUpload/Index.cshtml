@@ -1,4 +1,5 @@
-﻿@{
+﻿@model StlCollegePrepWebsite.Models.GradeUploadViewModel
+@{
     ViewBag.Title = "GradeUpload";
 }
 
@@ -9,32 +10,40 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>Student</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4>Student</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <label for="year">Year</label>
-    <!--Grab Value for controller-->
-    <input type="text" name="year"><br><br>
+        <div>
+            @Html.LabelFor(m => m.Year)
+            @Html.EditorFor(m => m.Year)
+            <br />@Html.ValidationMessageFor(m => m.Year)
+        </div>
 
-    <label for="semester">Semester</label>
-    <select name="semester">
-        <option disabled selected value> -- select an option -- </option>
-        <option value="Fall">Fall</option>
-        <option value="Spring">Spring</option>
-        <option value="Summer">Summer</option>
-    </select><br><br>
+        <div>
+            <label for="semester">Semester</label>
+            <select name="semester">
+                <option disabled selected value=""> -- select a semester -- </option>
+                <option value="Fall">Fall</option>
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+            </select>
+            <br />@Html.ValidationMessageFor(m => m.Semester)
+        </div>
 
-    <label for="csv">CSV File</label>
-    <input type="text" name="fileName" value="csvFile" readonly>
-    <input type="file" name="postedFile"><br />
+        <div>
+            <label for="csv">CSV File</label>
+            <input type="file" name="PostedFile">
+            <br/>@Html.ValidationMessageFor(m => m.PostedFile)
+        </div>
 
-    <button type="submit">Upload</button>
-</div>
+        <button type="submit">Upload</button>
+    </div>
 
-    <br>
-
+    <div>
+        CSV files must be in the following format
+    </div>
     <table class="table">
         <tr>
             <th>
@@ -55,28 +64,26 @@
             <th>
                 Final Grade
             </th>
-            <th></th>
         </tr>
-
         <tr>
             <td>
-                students.LastName
+                Doe
             </td>
             <td>
-                students.FirstName
+                John
             </td>
             <td>
-                students.StudentNumber
+                1234
             </td>
             <td>
-                courseStudents.ClassDescription
+                Geometry A
             </td>
             <td>
-                period.Semester
+                Q2
             </td>
             <td>
-                courseStudents.AwardedGrade
+                2.14
             </td>
         </tr>
     </table>
-}
+    }
