@@ -37,20 +37,19 @@ namespace StlCollegePrepWebsite.Controllers
                 postedFile.SaveAs(filePath);
 
                 //Read the contents of CSV file.
-                string csvData = System.IO.File.ReadAllText(filePath);
-
-                //Execute a loop over the rows.
-                foreach (string row in csvData.Split('\n'))
+                using (StreamReader sr = new StreamReader(filePath))
                 {
-                    if (!string.IsNullOrEmpty(row))
+                    string currentLine;
+                    // currentLine will be null when the StreamReader reaches the end of file
+                    while ((currentLine = sr.ReadLine()) != null)
                     {
                         students.Add(new Student
                         {
                             //UserId = studentId,
 
-                            LastName = row.Split(',')[0],
-                            FirstName = row.Split(',')[1],
-                            StudentNumber = row.Split(',')[2],
+                            LastName = currentLine.Split(',')[0],
+                            FirstName = currentLine.Split(',')[1],
+                            StudentNumber = currentLine.Split(',')[2],
                         });
 
                         courseStudents.Add(new CourseStudent
@@ -58,7 +57,7 @@ namespace StlCollegePrepWebsite.Controllers
                             //CourseId = courseId,
                             //StudentId = studentId,
 
-                            AwardedGrade = Convert.ToDouble(row.Split(',')[5]),
+                            AwardedGrade = Convert.ToDouble(currentLine.Split(',')[5]),
                         });
                     }
                 }
