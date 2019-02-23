@@ -74,7 +74,6 @@ namespace StlCollegePrepWebsite.Controllers
                     }
                 }
             }
-
             return View(students);
         }
 
