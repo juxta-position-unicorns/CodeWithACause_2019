@@ -18,6 +18,7 @@ namespace StlCollegePrepWebsite.Models
         [Required]
         public string Semester { get; set; }
         [Required]
+        [Display(Name = "CSV File")]
         public HttpPostedFileBase PostedFile { get; set; }
 
         public List<int> Duplicates { get; set; }
