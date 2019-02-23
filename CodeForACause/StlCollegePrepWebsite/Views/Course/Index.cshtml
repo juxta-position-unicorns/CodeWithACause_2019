@@ -1,45 +1,40 @@
 ﻿@model IEnumerable<StlCollegePrepWebsite.Models.Course>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Course List";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("Index", "Course", FormMethod.Get))
+{
+    //var subjects = new SelectList(Model.)
+}
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 <table class="table">
     <tr>
         <th>
-            Course Name
+            Course ID
         </th>
         <th>
-            Instructor Id
+            Semester
         </th>
         <th>
             Subject
         </th>
         <th>
-            Level
+            Course Name
         </th>
         <th>
-            Start Time
-        </th>
-        <th>
-            End Time
-        </th>
-        <th>
-            Period
+            Instructor
         </th>
         <th>
             Credit Hours
         </th>
         <th>
-            Year
-        </th>
-        <th>
-            Semester
+            Period
         </th>
 
     </tr>
