@@ -17,12 +17,20 @@ namespace StlCollegePrepWebsite.Controllers
         // GET: Course
         public ActionResult Index()
         {
+            
+
             return View(db.Courses.ToList());
         }
 
         // GET: Course/Details/5
         public ActionResult Details(int? id)
         {
+
+            //var courseStudentList =
+            //    from c in db.Courses
+            //    join cs in db.CourseStudents on c.CourseId equals cs.CourseId
+            //    join s in db.Students on cs.StudentId equals s.UserId
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
