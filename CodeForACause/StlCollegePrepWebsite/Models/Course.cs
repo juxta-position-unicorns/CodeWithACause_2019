@@ -24,5 +24,7 @@ namespace StlCollegePrepWebsite.Models
         public DateTime? EndTime { get; set; }
         public int? Year { get; set; }
         public string Semester { get; set; }
+        public string CourseName { get; set; }
+        public string PeriodName { get; set; }
     }
 }
