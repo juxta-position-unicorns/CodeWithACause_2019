@@ -1,4 +1,6 @@
 ﻿-- Period
+truncate table Period;
+
 INSERT INTO Period (PeriodName, StartTime, EndTime)  VALUES ('Period 1', '9:00', '9:53');
 INSERT INTO Period (PeriodName, StartTime, EndTime)  VALUES ('Period 2', '9:56', '10:49');
 INSERT INTO Period (PeriodName, StartTime, EndTime)  VALUES ('Period 3', '10:52', '11:45');
@@ -8,6 +10,8 @@ INSERT INTO Period (PeriodName, StartTime, EndTime)  VALUES ('Period 6', '2:36',
 INSERT INTO Period (PeriodName, StartTime, EndTime)  VALUES ('Period 7', '3:32', '4:25');
 
 -- SubjectLevel
+truncate table SubjectLevel;
+
  -- Mathematics
 insert into SubjectLevel (CourseName, Subject, Level, IsElective, CreditHours) values ('Algebra', 'Mathematics', '1', '0', '.5')
 insert into SubjectLevel (CourseName, Subject, Level, IsElective, CreditHours) values ('Geometry', 'Mathematics', '2', '0', '.5')
@@ -51,6 +55,8 @@ insert into SubjectLevel (CourseName, Subject, Level, IsElective, CreditHours) v
 insert into SubjectLevel (CourseName, Subject, Level, IsElective, CreditHours) values ('Yearbook', 'Other', '1', '1', '1')
 
 -- Instuctor
+truncate table instructor;
+
 INSERT INTO Instructor (UserId, Name) VALUES (NEWID(), 'Cohoon')
 INSERT INTO Instructor (UserId, Name) VALUES (NEWID(), 'Lischwe')
 INSERT INTO Instructor (UserId, Name) VALUES (NEWID(), 'Foster')
@@ -68,6 +74,8 @@ INSERT INTO Instructor (UserId, Name) VALUES (NEWID(), 'Wood')
 INSERT INTO Instructor (UserId, Name) VALUES (NEWID(), 'Basler')
 
 -- Course
+truncate table Course;
+
  -- Spanish I
 insert into Course (CourseName, Subject, Level,  PeriodName, StartTime, EndTime, Year, Semester) values ('Spanish I', 'Foreign Languages', '1', 'Period 1', '9:00', '9:53', '2019', 'T2');
 insert into Course (CourseName, Subject, Level,  PeriodName, StartTime, EndTime, Year, Semester) values ('Spanish I', 'Foreign Languages', '1', 'Period 4', '11:48', '12:41', '2019', 'T2');
