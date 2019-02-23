@@ -19,6 +19,6 @@ namespace StlCollegePrepWebsite.Models
 
         public bool IsElective { get; set; }
 
-        public float CreditHours { get; set; }
+        public double? CreditHours { get; set; }
     }
 }

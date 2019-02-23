@@ -17,7 +17,7 @@ namespace StlCollegePrepWebsite.Models
         
         public string Subject { get; set; }
         public int? Level { get; set; }
-        public float? CreditHours { get; set; }
+        public double? CreditHours { get; set; }
         public TimeSpan? StartTime { get; set; }
         public TimeSpan? EndTime { get; set; }
         public int? Year { get; set; }

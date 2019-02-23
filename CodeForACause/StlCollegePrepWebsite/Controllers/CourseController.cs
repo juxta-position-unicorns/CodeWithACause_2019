@@ -55,6 +55,8 @@ namespace StlCollegePrepWebsite.Controllers
 
             courses = courses.OrderBy(x => x.CourseName).ThenBy(x => x.CourseId);
 
+            var results = courses.ToPagedList(page ?? 1, itemsPerPage ?? 25);
+
             var model = new CourseSearchResults
             {
                 Search = search,
@@ -65,7 +67,7 @@ namespace StlCollegePrepWebsite.Controllers
                 SortBy = sortBy,
                 Instructors = db.Instructors.OrderBy(x => x.UserId).ToList(),
                 Periods = db.Periods.OrderBy(x => x.PeriodName).ToList(),
-                Results = courses.ToPagedList(page ?? 1, itemsPerPage ?? 25),
+                Results = results,
             };
 
             return View("Index", model);
