@@ -27,6 +27,8 @@ namespace StlCollegePrepWebsite.Models
         [Display(Name = "Sort By")]
         public string SortBy { get; set; }
 
+        //public IEnumerable
+
         public IPagedList<Course> Results { get; set; }
 
     }
