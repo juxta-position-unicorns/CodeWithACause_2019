@@ -29,6 +29,8 @@ namespace StlCollegePrepWebsite.Models
 
         public IEnumerable<Period> Periods { get; set; }
 
+        public IEnumerable<Instructor> Instructors { get; set; }
+
         public IPagedList<Course> Results { get; set; }
 
     }

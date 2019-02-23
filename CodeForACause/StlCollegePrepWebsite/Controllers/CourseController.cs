@@ -63,6 +63,7 @@ namespace StlCollegePrepWebsite.Controllers
                 Period = period,
                 InstructorId = instructorId,
                 SortBy = sortBy,
+                Instructors = db.Instructors.OrderBy(x => x.UserId).ToList(),
                 Periods = db.Periods.OrderBy(x => x.PeriodName).ToList(),
                 Results = courses.ToPagedList(page ?? 1, itemsPerPage ?? 25),
             };

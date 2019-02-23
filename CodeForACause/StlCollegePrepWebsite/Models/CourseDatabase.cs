@@ -18,5 +18,6 @@ namespace StlCollegePrepWebsite.Models
         public DbSet<CourseStudent> CourseStudents { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<Period> Periods { get; set; }
+        public DbSet<Instructor> Instructors { get; set; }
     }
 }

@@ -8,10 +8,12 @@
 @using (Html.BeginForm("Index", "Course", FormMethod.Get))
 {
     var periods = new SelectList(Model.Periods, "PeriodName");
+    var instructors = new SelectList(Model.Instructors, "UserId");
 
     <div class="mb-3">
         @Html.EditorFor(x => x.Search, new { htmlAttributes = new { placeholder = "Search" } })
         @Html.DropDownListFor(x => x.Period, periods, "(ALL)");
+        @Html.DropDownListFor(x => x.InstructorId, instructors, "(ALL)");
     </div>
     
 }
