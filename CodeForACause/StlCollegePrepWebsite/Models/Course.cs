@@ -27,7 +27,7 @@ namespace StlCollegePrepWebsite.Models
         public int? Level { get; set; }
         
         [Display(Name = "Credit Hours")]
-        public float? CreditHours { get; set; }
+        public double? CreditHours { get; set; }
 
         [MaxLength(20)]
         [Display(Name = "Period")]
