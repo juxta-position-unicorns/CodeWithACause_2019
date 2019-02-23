@@ -74,4 +74,7 @@
   <ItemGroup>
     <RefactorLog Include="StlCollegePrepDatabase.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Publish\localhost.publish.xml" />
+  </ItemGroup>
 </Project>
