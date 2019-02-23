@@ -14,11 +14,9 @@ namespace StlCollegePrepWebsite.Models
         public int CourseId { get; set; }
         
         public string InstructorId { get; set; }
-
-        [Required]
+        
         public string Subject { get; set; }
-        [Required]
-        public int Level { get; set; }
+        public int? Level { get; set; }
         public float? CreditHours { get; set; }
         public TimeSpan? StartTime { get; set; }
         public TimeSpan? EndTime { get; set; }
