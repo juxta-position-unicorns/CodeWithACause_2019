@@ -19,6 +19,7 @@ namespace StlCollegePrepWebsite.Models
 
         [Required]
         public string LastName { get; set; }
+
         public string SchoolName { get; set; }
     }
 }
