@@ -34,7 +34,7 @@ namespace StlCollegePrepWebsite.Controllers
             }
             if (report.Height == null)
             {
-                report.Height = 100;
+                report.Height = 400;
             }
             return View(report);
         }

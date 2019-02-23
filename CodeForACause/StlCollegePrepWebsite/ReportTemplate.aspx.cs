@@ -25,6 +25,10 @@ namespace StlCollegePrepWebsite.Views.Report
                     {
                         rvSiteMapping.Height = Unit.Pixel(Convert.ToInt32(heightString)); //- 58);
                     }
+                    else
+                    {
+                        rvSiteMapping.Height = Unit.Pixel(400);
+                    }
 
                     rvSiteMapping.ProcessingMode = Microsoft.Reporting.WebForms.ProcessingMode.Remote;
                     rvSiteMapping.ServerReport.ReportServerUrl = new Uri(serverUrl);

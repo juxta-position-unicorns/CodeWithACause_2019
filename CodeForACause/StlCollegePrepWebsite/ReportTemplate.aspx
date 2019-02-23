@@ -13,7 +13,7 @@
                 <div runat="server" id="errorMessage" class="text-warning" />
                 <asp:ScriptManager ID="ScriptManager1" runat="server">
                     <Scripts>
-                        <asp:ScriptReference Assembly="ReportViewerForMvc" Name="ReportViewerForMvc.Scripts.PostMessage.js" />
+                        <%--<asp:ScriptReference Assembly="ReportViewerForMvc" Name="ReportViewerForMvc.Scripts.PostMessage.js" />--%>
                     </Scripts>
                 </asp:ScriptManager>
                 <rsweb:ReportViewer 
