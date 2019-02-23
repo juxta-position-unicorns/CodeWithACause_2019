@@ -12,113 +12,162 @@ namespace StlCollegePrepWebsite.Controllers
     {
         private CourseDatabase _db = new CourseDatabase();
 
-        // GET: GradeUpload
-        /*new List<Peirod> Perirod Model currently not in.*/
+        private class StudentGrade
+        {
+            public int RowNumber { get; set; }
+            public string RecordId { get; set; }
+            public string LastName { get; set; }
+            public string FirstName { get; set; }
+            public string StudentNumber { get; set; }
+            public string CourseName { get; set; }
+            public string PeriodName { get; set; }
+            public float FinalGrade { get; set; }
+        }
+        
         public ActionResult Index()
         {
-
-            new List<CourseStudent>();
-            return View(new List<Student>());
+            return View(new GradeUploadViewModel());
         }
-
         
         [HttpPost]
-        public ActionResult Index(int year, string semester, HttpPostedFileBase postedFile)
+        public ActionResult Index(GradeUploadViewModel viewModel)
         {
-            List<Student> students = new List<Student>();
-            List<Course> courses = new List<Course>();
-
-            if (ValidateFile(postedFile))
+            try
             {
-                string filePath = string.Empty;
-                string path = Server.MapPath("~/Uploads/");
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
-
-                filePath = path + Path.GetFileName(postedFile.FileName);
-                string extension = Path.GetExtension(postedFile.FileName);
-                postedFile.SaveAs(filePath);
-
-                //Read the contents of CSV file.
-                using (StreamReader sr = new StreamReader(filePath))
+                var postedFile = viewModel.PostedFile;
+                if (ModelState.IsValid && ValidateFile("PostedFile", postedFile))
                 {
-                    string currentLine = sr.ReadLine();
-                    // TODO: check headers
-
-                    // currentLine will be null when the StreamReader reaches the end of file
-                    while ((currentLine = sr.ReadLine()) != null)
+                    string folderPath = Server.MapPath("~/Uploads/");
+                    if (!Directory.Exists(folderPath))
                     {
-                        string[] tokens = currentLine.Split(',');
-                        var student = new Student
-                        {
-                            UserId = Guid.NewGuid().ToString(),
-
-                            LastName = tokens[0],
-                            FirstName = tokens[1],
-                            StudentNumber = tokens[2],
-                        };
-                        var course = new Course
-                        {
-                            CourseName = tokens[3],
-                            PeriodName = tokens[4],
-                            Semester = semester,
-                            Year = year,
-                        };
-                        /*
-                        var courseStudent = new CourseStudent
-                        {
-                            Student = student,
-                            Course = course,
-                            AwardedGrade = Double.Parse(tokens[5]),
-                        };
-                        */
-
-                        students.Add(student);
-                        courses.Add(course);
-
-                        //_db.Courses.Add(course);
-                        //_db.Students.Add(student);
-                        //_db.CourseStudents.Add(courseStudent);
-                    
+                        Directory.CreateDirectory(folderPath);
                     }
 
-                    _db.Students.AddRange(students.GroupBy(x => new { x.StudentNumber, x.FirstName, x.LastName }).Select(g => g.FirstOrDefault()));
-                    _db.Courses.AddRange(courses.GroupBy(x => new { x.CourseName, x.PeriodName }).Select(g => g.FirstOrDefault()));
-                    _db.SaveChanges();
+                    string filePath = folderPath + Path.GetFileName(postedFile.FileName);
+                    postedFile.SaveAs(filePath);
+
+                    var grades = new List<StudentGrade>();
+                    var students = new List<Student>();
+                    var courses = new List<Course>();
+
+                    //Read the contents of CSV file.
+                    using (StreamReader sr = new StreamReader(filePath))
+                    {
+                        string currentLine = sr.ReadLine();
+                        if (currentLine != "Student Last Name,Student First Name,Student Number,Class Description,Grading Period Description,Final Grade")
+                        {
+                            throw new Exception("CSV column headers are not as expected");
+                        }
+
+                        // currentLine will be null when the StreamReader reaches the end of file
+                        int rowNumber = 1;
+                        while ((currentLine = sr.ReadLine()) != null)
+                        {
+                            ++rowNumber;
+                            string[] tokens = currentLine.Split(',');
+                            var grade = new StudentGrade
+                            {
+                                RowNumber = rowNumber,
+                                RecordId = Guid.NewGuid().ToString(),
+                                LastName = tokens[0],
+                                FirstName = tokens[1],
+                                StudentNumber = tokens[2],
+                                CourseName = tokens[3],
+                                PeriodName = tokens[4],
+                                FinalGrade = ParseGrade(tokens[5]),
+                            };
+                            grades.Add(grade);
+
+                            var student = new Student
+                            {
+                                UserId = grade.RecordId,
+
+                                LastName = grade.LastName,
+                                FirstName = grade.FirstName,
+                                StudentNumber = grade.StudentNumber,
+                            };
+                            students.Add(student);
+
+                            var course = new Course
+                            {
+                                CourseName = grade.CourseName,
+                                PeriodName = grade.PeriodName,
+                                Semester = viewModel.Semester,
+                                Year = viewModel.Year,
+                            };
+                            courses.Add(course);
+                        }
+
+                        viewModel.Duplicates =
+                            grades.GroupBy(x => new { x.StudentNumber, x.FirstName, x.LastName, x.CourseName, x.PeriodName })
+                                  .Where(g => g.Count() > 1)
+                                  .SelectMany(g => g.Select(x => x.RowNumber))
+                                  .OrderBy(x => x)
+                                  .ToList();
+                        if (viewModel.Duplicates.Any())
+                        {
+                            throw new Exception("Duplicate grades in CSV file");
+                        }
+
+                        students = students.GroupBy(x => new { x.StudentNumber, x.FirstName, x.LastName }).Select(g => g.FirstOrDefault()).ToList();
+                        courses = courses.GroupBy(x => new { x.CourseName, x.PeriodName }).Select(g => g.FirstOrDefault()).ToList();
+
+                        foreach (var grade in grades)
+                        {
+                            var courseStudent = new CourseStudent
+                            {
+                                Student = students.First(x => x.StudentNumber == grade.StudentNumber && x.FirstName == grade.FirstName && x.LastName == grade.LastName),
+                                Course = courses.First(x => x.CourseName == grade.CourseName && x.PeriodName == grade.PeriodName),
+                                AwardedGrade = grade.FinalGrade,
+                            };
+                            _db.CourseStudents.Add(courseStudent);
+                        }
+
+                        _db.Students.AddRange(students);
+                        _db.Courses.AddRange(courses);
+                        _db.SaveChanges();
+                        return RedirectToAction("Index", "Report");
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("PostedFile", ex.Message);
+            }
 
-            return View();
+            return View(viewModel);
         }
-
-        private bool ValidateFile(HttpPostedFileBase file)
+        
+        private bool ValidateFile(string key, HttpPostedFileBase file)
         {
-            string error;
             if (file == null)
             {
-                error = "Please select a file";
+                ModelState.AddModelError(key, "Please select a file");
                 return false;
             }
             if (file.ContentLength <= 0)
             {
-                error = "File size was zero";
+                ModelState.AddModelError(key, "File size was zero");
                 return false;
             }
-            if (file.ContentLength >= 5242880)
+            if (file.ContentLength >= 5242880) // What limit??
             {
-                error = "File size was to large.";
+                ModelState.AddModelError(key, "File size was to large.");
                 return false;
             }
 
             string fileExtension = Path.GetExtension(file.FileName).ToLower();
             if (".csv" != fileExtension)
             {
-                error = $"File extension {fileExtension} is not valid for this form.";
+                ModelState.AddModelError(key, $"File extension must be .csv, file extension was {fileExtension}");
                 return false;
             }
             return true;
+        }
+
+        private float ParseGrade(string grade)
+        {
+            return float.Parse(grade);
         }
     }
 }
