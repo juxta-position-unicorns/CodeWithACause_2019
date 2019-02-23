@@ -71,6 +71,7 @@
     <Build Include="Tables\Student.sql" />
     <Build Include="Tables\Instructor.sql" />
     <Build Include="Tables\Period.sql" />
+    <Build Include="Tables\Report.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="StlCollegePrepDatabase.refactorlog" />

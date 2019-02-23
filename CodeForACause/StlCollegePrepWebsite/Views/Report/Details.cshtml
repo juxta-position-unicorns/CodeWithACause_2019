@@ -1,0 +1,25 @@
+﻿@model StlCollegePrepWebsite.Models.Report
+
+@{
+    ViewBag.Title = Model.ReportName;
+    string reportUrl = String.Format(
+        "../../ReportTemplate.aspx?ReportName={0}&Height={1}",
+        Model.ReportName, Model.Height
+    );
+}
+
+<h2>@Model.ReportName</h2>
+<h4>Report</h4>
+<hr />
+
+<div>
+    <p>@Model.ReportDescription</p>
+    <iframe id="frmReport"
+            src="@reportUrl"
+            frameborder="0"
+            style="@String.Format("width: 100%; height: {0}px;", Model.Height)"></iframe>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ReportName }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

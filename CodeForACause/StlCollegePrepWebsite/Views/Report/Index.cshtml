@@ -1,0 +1,32 @@
+﻿@model IEnumerable<StlCollegePrepWebsite.Models.Report>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Reports</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ReportName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.ReportName, "Details", new { id = item.ReportName })
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ReportName }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ReportName })
+        </td>
+    </tr>
+}
+
+</table>

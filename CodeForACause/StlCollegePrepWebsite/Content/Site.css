@@ -22,3 +22,17 @@ select,
 textarea {
     max-width: 280px;
 }
+/* Add margin to top of the page, so that it isn't covered by the navbar */
+html {
+    margin-top: 3em;
+}
+/* Increase the size of the application name */
+.navbar .navbar-brand {
+    font-size: 2em;
+}
+/* Make placeholder text in fields semi-transparent */
+.navbar ::placeholder,
+.body-content ::placeholder {
+    opacity: 0.5;
+}
+
