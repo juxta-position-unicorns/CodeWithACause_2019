@@ -11,22 +11,33 @@ namespace StlCollegePrepWebsite.Models
     public class Student : IEquatable<Student>
     {
         [Key]
+        [MaxLength(128)]
+        [Display(Name ="User Id")]
         public string UserId { get; set; }
 
         [Required]
+        [MaxLength(20)]
+        [Display(Name = "Student Number")]
         public string StudentNumber { get; set; }       
 
         [Required]
+        [MaxLength(30)]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [Required]
+        [MaxLength(30)]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
+        [MaxLength(50)]
+        [Display(Name = "School Name")]
         public string SchoolName { get; set; }
 
         public bool? IEP { get; set; }
 
         [Display(Name = "Graduate By")]
+        [MaxLength(20)]
         public string GraduateBy { get; set; }
         
         public bool Equals(Student other)
