@@ -21,8 +21,7 @@
                         aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                @Html.ActionLink("STL College Prep", "Index", "Home", new { area = "" }, new { @class = "navbar-brand nav-link" })
+                <a href="@Url.Action("Index", "Home")" class="navbar-brand nav-link"><img src="@Url.Content("~/Content/logo.png")" alt="STL College Prep" height="70"/></a>
             </div>
             <div class="navbar-collapse collapse"  id="navbarColor01">
                 <ul class="nav navbar-nav">
