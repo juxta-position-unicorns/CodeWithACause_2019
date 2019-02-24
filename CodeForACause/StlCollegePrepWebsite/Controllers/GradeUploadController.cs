@@ -21,7 +21,7 @@ namespace StlCollegePrepWebsite.Controllers
             public string StudentNumber { get; set; }
             public string CourseName { get; set; }
             public string PeriodName { get; set; }
-            public float FinalGrade { get; set; }
+            public decimal FinalGrade { get; set; }
         }
         
         public ActionResult Index()
@@ -183,9 +183,9 @@ namespace StlCollegePrepWebsite.Controllers
             return true;
         }
 
-        private float ParseGrade(string grade)
+        private decimal ParseGrade(string grade)
         {
-            return float.Parse(grade);
+            return decimal.Parse(grade);
         }
     }
 }

@@ -17,7 +17,10 @@ namespace StlCollegePrepWebsite.Models
         public string StudentId { get; set; }
 
         public int? AcademicYear { get; set; }
-        public double? AwardedGrade { get; set; }
+
+        [Display(Name = "Final Grade")]
+        [DisplayFormat(DataFormatString = "{0:F2}", ApplyFormatInEditMode = true)]
+        public decimal? AwardedGrade { get; set; }
 
         // Navigation properties
         [ForeignKey("CourseId")]

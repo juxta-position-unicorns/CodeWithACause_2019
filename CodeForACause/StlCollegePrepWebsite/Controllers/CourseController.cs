@@ -96,8 +96,20 @@ namespace StlCollegePrepWebsite.Controllers
         // GET: Course/Details/5
         public ActionResult Details(int? id)
         {
-
-            
+            IQueryable<StudentInfo> studentCourseList =
+                from cs in db.CourseStudents
+                join s in db.Students on cs.StudentId equals s.UserId
+                where cs.CourseId == id
+                orderby s.LastName, s.FirstName, s.StudentNumber
+                select new StudentInfo
+                {
+                    StudentNumber = s.StudentNumber,
+                    FirstName = s.FirstName,
+                    LastName = s.LastName,
+                    AwardedGrade = cs.AwardedGrade
+                };
+                        
+            ViewBag.StudentCourseList = studentCourseList.ToList();            
 
             if (id == null)
             {
@@ -122,7 +134,7 @@ namespace StlCollegePrepWebsite.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CourseId,InstructorId,Subject,Level,CreditHours,StartTime,EndTime,Year,Semester")] Course course)
+        public ActionResult Create([Bind(Include = "CourseId,InstructorId,CourseName,Subject,Level,CreditHours,PeriodName,StartTime,EndTime,Year,Semester")] Course course)
         {
             if (ModelState.IsValid)
             {
@@ -154,7 +166,7 @@ namespace StlCollegePrepWebsite.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CourseId,InstructorId,Subject,Level,CreditHours,StartTime,EndTime,Year,Semester")] Course course)
+        public ActionResult Edit([Bind(Include = "CourseId,InstructorId,CourseName,Subject,Level,CreditHours,PeriodName,StartTime,EndTime,Year,Semester")] Course course)
         {
             if (ModelState.IsValid)
             {
