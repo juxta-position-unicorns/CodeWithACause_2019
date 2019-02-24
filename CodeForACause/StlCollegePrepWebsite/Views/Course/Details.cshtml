@@ -1,7 +1,10 @@
 ﻿@model StlCollegePrepWebsite.Models.Course
+@using StlCollegePrepWebsite.Models
 
 @{
     ViewBag.Title = "Details";
+
+    List<StudentInfo> students = ViewBag.StudentCourseList;
 }
 
 <h2>Details</h2>
@@ -91,10 +94,10 @@
                 First Name
             </th>
             <th>
-                Awarded Grade
+                Final Grade
             </th>
         </tr>
-        @foreach (var item in ViewBag.StudentCourseList)
+        @foreach (var item in students)
         {
         <tr>
             <td>
@@ -107,7 +110,7 @@
                 @item.FirstName
             </td>
             <td>
-                @item.AwardedGrade
+                @Html.DisplayFor(x => item.AwardedGrade)
             </td>
         </tr>
         }

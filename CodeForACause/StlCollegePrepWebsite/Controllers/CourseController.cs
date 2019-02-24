@@ -109,7 +109,7 @@ namespace StlCollegePrepWebsite.Controllers
                     AwardedGrade = cs.AwardedGrade
                 };
                         
-            ViewBag.StudentCourseList = studentCourseList;            
+            ViewBag.StudentCourseList = studentCourseList.ToList();            
 
             if (id == null)
             {
