@@ -24,7 +24,7 @@ textarea {
 }
 /* Add margin to top of the page, so that it isn't covered by the navbar */
 html {
-    margin-top: 3em;
+    margin-top: 7em;
 }
 /* Increase the size of the application name */
 .navbar .navbar-brand {

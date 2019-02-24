@@ -20,7 +20,7 @@ namespace StlCollegePrepWebsite.Models
         public string Subject { get; set; }
 
         [Display(Name = "Level")]
-        public int Level { get; set; }
+        public int? Level { get; set; }
 
         public bool IsElective { get; set; }
 

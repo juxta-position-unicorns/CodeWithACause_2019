@@ -1,11 +1,24 @@
 ﻿@model StlCollegePrepWebsite.Models.Report
+@using System.Text;
 
 @{
     ViewBag.Title = Model.ReportName;
-    string reportUrl = String.Format(
+
+    StringBuilder reportUrl = new StringBuilder();
+    reportUrl.AppendFormat(
         "../../ReportTemplate.aspx?ReportName={0}&Height={1}",
         Model.ReportName, Model.Height
     );
+
+    var parameterNames = new string[] { "StudentId", "CourseId", "Year", "Semester" };
+    foreach (string name in parameterNames)
+    {
+        string value = Request.QueryString[name];
+        if (!string.IsNullOrWhiteSpace(value))
+        {
+            reportUrl.AppendFormat("&{0}={1}", name, value);
+        }
+    }
 }
 
 <h2>@Model.ReportName</h2>
@@ -15,7 +28,7 @@
 <div>
     <p>@Model.ReportDescription</p>
     <iframe id="frmReport"
-            src="@reportUrl"
+            src="@reportUrl.ToString()"
             frameborder="0"
             style="@String.Format("width: 100%; height: {0}px;", Model.Height)"></iframe>
 </div>
