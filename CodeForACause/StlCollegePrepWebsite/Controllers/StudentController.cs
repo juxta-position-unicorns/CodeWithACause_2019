@@ -21,8 +21,10 @@ namespace StlCollegePrepWebsite.Controllers
             IQueryable<Student> students = db.Students;
             if (!String.IsNullOrWhiteSpace(search))
             {
-                students = students.Where(x => x.FirstName.Contains(search) || x.LastName.Contains(search));
+                students = students.Where(x => x.FirstName.Contains(search) || x.LastName.Contains(search) || x.StudentNumber.Contains(search));
             }
+
+            students = students.OrderBy(x => x.LastName).ThenBy(x => x.FirstName).ThenBy(x => x.StudentNumber);
             var results = students.ToPagedList(page ?? 1, ItemsPerPage ?? 25);
             var model = new StudentSearchResults
             {
