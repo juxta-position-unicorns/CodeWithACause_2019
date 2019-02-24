@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Reporting.WebForms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -33,6 +34,16 @@ namespace StlCollegePrepWebsite.Views.Report
                     rvSiteMapping.ProcessingMode = Microsoft.Reporting.WebForms.ProcessingMode.Remote;
                     rvSiteMapping.ServerReport.ReportServerUrl = new Uri(serverUrl);
                     rvSiteMapping.ServerReport.ReportPath = String.Format("/{0}/{1}", reportFolder, reportName);
+
+                    var parameterNames = new string[] { "StudentId", "CourseId", "Year", "Semester" };
+                    foreach (string name in parameterNames)
+                    {
+                        string value = Request[name];
+                        if (!string.IsNullOrWhiteSpace(value))
+                        {
+                            rvSiteMapping.ServerReport.SetParameters(new ReportParameter(name, value));
+                        }
+                    }
 
                     rvSiteMapping.ServerReport.Refresh();
                 }
