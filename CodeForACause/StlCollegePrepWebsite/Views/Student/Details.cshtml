@@ -50,38 +50,32 @@
     <table class="table">
         <tr>
             <th>
-                Course Name
-            </th>
-            <th>
                 Subject
             </th>
             <th>
-                Awarded Grade
-            </th>
-            <th>
-                Academic Year
+                Course Name
             </th>
             <th>
                 Credit Hours
+            </th>
+            <th>
+                Final Grade
             </th>
         </tr>
         @foreach (var item in courses)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(x => item.CourseName)
-                </td>
-                <td>
                     @Html.DisplayFor(x => item.Subject)
                 </td>
                 <td>
-                    @Html.DisplayFor(x => item.AwardedGrade)
-                </td>
-                <td>
-                    @Html.DisplayFor(x => item.AcademicYear)
+                    @Html.DisplayFor(x => item.CourseName)
                 </td>
                 <td>
                     @Html.DisplayFor(x => item.CreditHours)
+                </td>
+                <td>
+                    @Html.DisplayFor(x => item.AwardedGrade)
                 </td>
             </tr>
         }
