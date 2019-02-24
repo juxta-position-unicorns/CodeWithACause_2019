@@ -9,9 +9,13 @@ namespace StlCollegePrepWebsite.Models
     {
         [Key]
         [Display(Name = "Report Name")]
+        [MaxLength(30)]
         public string ReportName { get; set; }
+
         [Display(Name = "Report Description")]
         public string ReportDescription { get; set; }
+
+        [Display(Name = "Height")]
         public int? Height { get; set; }
     }
 }

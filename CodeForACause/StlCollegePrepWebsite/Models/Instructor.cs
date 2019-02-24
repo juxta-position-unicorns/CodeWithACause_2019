@@ -11,7 +11,13 @@ namespace StlCollegePrepWebsite.Models
     public class Instructor
     {
         [Key]
+        [MaxLength(128)]
+        [Display(Name="User ID")]
         public string UserId { get; set; }
+
+        [Required]
+        [MaxLength(128)]
+        [Display(Name = "Name")]
         public string Name { get; set; }
     }
 }
