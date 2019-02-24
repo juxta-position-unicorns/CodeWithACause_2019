@@ -7,4 +7,6 @@
     [SchoolName] NVARCHAR(50) NULL,
     [IEP] BIT NULL,
     [GraduateBy] VARCHAR(20) NULL,
+
+    UNIQUE ([SchoolName], [StudentNumber], [LastName], [FirstName]),
 );
