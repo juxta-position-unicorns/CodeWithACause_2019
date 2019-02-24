@@ -14,13 +14,13 @@ namespace StlCollegePrepWebsite.Models
         public string UserId { get; set; }
 
         [Required]
-        public string StudentNumber { get; set; }
-
-        [Required]
-        public string FirstName { get; set; }
+        public string StudentNumber { get; set; }       
 
         [Required]
         public string LastName { get; set; }
+
+        [Required]
+        public string FirstName { get; set; }
 
         public string SchoolName { get; set; }
 
