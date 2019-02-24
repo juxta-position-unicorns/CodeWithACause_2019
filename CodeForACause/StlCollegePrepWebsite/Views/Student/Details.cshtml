@@ -69,20 +69,19 @@
         {
             <tr>
                 <td>
-                    @item.CourseName
-                    @*update to razor syntax*@
+                    @Html.DisplayFor(x => item.CourseName)
                 </td>
                 <td>
-                    @item.Subject
+                    @Html.DisplayFor(x => item.Subject)
                 </td>
                 <td>
-                    @item.AwardedGrade
+                    @Html.DisplayFor(x => item.AwardedGrade)
                 </td>
                 <td>
-                    @item.AcademicYear
+                    @Html.DisplayFor(x => item.AcademicYear)
                 </td>
                 <td>
-                    @item.CreditHours
+                    @Html.DisplayFor(x => item.CreditHours)
                 </td>
             </tr>
         }
