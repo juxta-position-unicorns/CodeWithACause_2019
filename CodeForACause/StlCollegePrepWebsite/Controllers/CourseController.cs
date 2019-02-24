@@ -28,7 +28,27 @@ namespace StlCollegePrepWebsite.Controllers
             int? itemsPerPage
             )
         {
-            IQueryable<Course> courses = db.Courses;
+            
+
+            IQueryable<CourseInfo> courses =
+            from c in db.Courses
+            join i in db.Instructors on c.InstructorId equals i.UserId into ig
+            select new CourseInfo
+            {
+                CourseId = c.CourseId,
+                InstructorId = c.InstructorId,
+                CourseName = c.CourseName,
+                Subject = c.Subject,
+                Level = c.Level,
+                CreditHours = c.CreditHours,
+                PeriodName = c.PeriodName,
+                StartTime = c.StartTime,
+                EndTime = c.EndTime,
+                Year = c.Year,
+                Semester = c.Semester,
+                InstructorName = ig.FirstOrDefault().Name                
+            };
+            
 
             if (!string.IsNullOrWhiteSpace(semester))
             {
@@ -77,10 +97,7 @@ namespace StlCollegePrepWebsite.Controllers
         public ActionResult Details(int? id)
         {
 
-            //var courseStudentList =
-            //    from c in db.Courses
-            //    join cs in db.CourseStudents on c.CourseId equals cs.CourseId
-            //    join s in db.Students on cs.StudentId equals s.UserId
+            
 
             if (id == null)
             {
