@@ -8,7 +8,7 @@ using System.Web;
 namespace StlCollegePrepWebsite.Models
 {
     [Table("Student")]
-    public class Student
+    public class Student : IEquatable<Student>
     {
         [Key]
         public string UserId { get; set; }
@@ -28,5 +28,22 @@ namespace StlCollegePrepWebsite.Models
 
         [Display(Name = "Graduate By")]
         public string GraduateBy { get; set; }
+        
+        public bool Equals(Student other)
+        {
+            if (other == null) { return false; }
+            if (object.ReferenceEquals(this, other)) { return true; }
+
+            return this.StudentNumber == other.StudentNumber &&
+                   this.LastName == other.LastName &&
+                   this.FirstName == other.FirstName;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Course);
+        }
+
+        public override int GetHashCode() => (StudentNumber, LastName, FirstName).GetHashCode();
     }
 }
