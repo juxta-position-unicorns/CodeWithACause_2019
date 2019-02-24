@@ -37,8 +37,6 @@ namespace StlCollegePrepWebsite.Controllers
         // GET: Student/Details/5
         public ActionResult Details(string id)
         {
-            
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -53,13 +51,15 @@ namespace StlCollegePrepWebsite.Controllers
                 from cs in db.CourseStudents
                 join c in db.Courses on cs.CourseId equals c.CourseId
                 where cs.StudentId == id
-                orderby c.Subject, c.CourseName
+                orderby c.Year, c.Semester, c.Subject, c.CourseName
                 select new StudentDetails
                 {
+                    Year = c.Year,
+                    Semester = c.Semester,
                     CourseName = c.CourseName,
                     Subject = c.Subject,
                     AwardedGrade = cs.AwardedGrade,
-                    AcademicYear = cs.AcademicYear,
+                    //AcademicYear = cs.AcademicYear,
                     CreditHours = c.CreditHours
                 };
             ViewBag.StudentCourses = studentCourses.ToList();

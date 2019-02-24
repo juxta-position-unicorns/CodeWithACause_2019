@@ -50,6 +50,9 @@
     <table class="table">
         <tr>
             <th>
+                Semester
+            </th>
+            <th>
                 Subject
             </th>
             <th>
@@ -65,6 +68,9 @@
         @foreach (var item in courses)
         {
             <tr>
+                <td>
+                    @item.Year @item.Semester
+                </td>
                 <td>
                     @Html.DisplayFor(x => item.Subject)
                 </td>
