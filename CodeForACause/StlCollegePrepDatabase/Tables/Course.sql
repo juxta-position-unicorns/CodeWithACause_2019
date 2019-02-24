@@ -11,4 +11,6 @@
     [EndTime] TIME NULL, 
     [Year] INT NULL, 
     [Semester] VARCHAR(20) NULL,
+
+    UNIQUE ([Year], [Semester], [CourseName], [PeriodName]),
 );

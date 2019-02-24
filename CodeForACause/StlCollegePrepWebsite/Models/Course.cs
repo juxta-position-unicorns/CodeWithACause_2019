@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace StlCollegePrepWebsite.Models
 {
     [Table("Course")]
-    public class Course
+    public class Course : IEquatable<Course>
     {
         [Key]
         public int CourseId { get; set; }
@@ -43,5 +43,21 @@ namespace StlCollegePrepWebsite.Models
 
         [MaxLength(20)]
         public string Semester { get; set; }
+
+        public bool Equals(Course other)
+        {
+            if (other == null) { return false; }
+            if (object.ReferenceEquals(this, other)) { return true; }
+            
+            return this.CourseName == other.CourseName &&
+                   this.PeriodName == other.PeriodName;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Course);
+        }
+
+        public override int GetHashCode() => (CourseName, PeriodName).GetHashCode();
     }
 }

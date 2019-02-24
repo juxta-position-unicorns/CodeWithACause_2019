@@ -19,14 +19,13 @@
 <table class="table">
     <tr>
         <th>
-            Student Number
-        </th>
-
-        <th>
-            Last Name 
+            Last Name
         </th>
         <th>
             First Name
+        </th>
+        <th>
+            Student Number
         </th>
         <th>
             School Name
@@ -36,13 +35,13 @@
 @foreach (var item in Model.Results) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.StudentNumber)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.LastName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentNumber)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SchoolName)
