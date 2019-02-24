@@ -47,7 +47,7 @@
     </dl>
 </div>
 <div>
-    <table>
+    <table class="table">
         <tr>
             <th>
                 Course Name
@@ -89,6 +89,7 @@
 
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Transcript", "Details", "Report", routeValues: new { id = "Transcript", StudentId = Model.UserId }, htmlAttributes: new { @class = "btn btn-primary" })
+    @Html.ActionLink("Edit", "Edit", routeValues: new { id = Model.UserId }, htmlAttributes: new { @class = "btn btn-secondary" })
+    | @Html.ActionLink("Back to List", "Index")
 </p>

@@ -62,7 +62,7 @@ namespace StlCollegePrepWebsite.Controllers
                     AcademicYear = cs.AcademicYear,
                     CreditHours = c.CreditHours
                 };
-            ViewBag.StudentCourses = studentCourses;
+            ViewBag.StudentCourses = studentCourses.ToList();
 
             return View(student);
         }
