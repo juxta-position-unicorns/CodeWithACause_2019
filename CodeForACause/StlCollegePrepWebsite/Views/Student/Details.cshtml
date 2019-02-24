@@ -1,7 +1,9 @@
 ﻿@model StlCollegePrepWebsite.Models.Student
-
+@using StlCollegePrepWebsite.Models
 @{
     ViewBag.Title = "Details";
+
+    List<StudentDetails> courses = ViewBag.StudentCourses;
 }
 
 <h2>Details</h2>
@@ -43,6 +45,49 @@
         </dd>
 
     </dl>
+</div>
+<div>
+    <table>
+        <tr>
+            <th>
+                Course Name
+            </th>
+            <th>
+                Subject
+            </th>
+            <th>
+                Awarded Grade
+            </th>
+            <th>
+                Academic Year
+            </th>
+            <th>
+                Credit Hours
+            </th>
+        </tr>
+        @foreach (var item in courses)
+        {
+            <tr>
+                <td>
+                    @item.CourseName
+                    @*update to razor syntax*@
+                </td>
+                <td>
+                    @item.Subject
+                </td>
+                <td>
+                    @item.AwardedGrade
+                </td>
+                <td>
+                    @item.AcademicYear
+                </td>
+                <td>
+                    @item.CreditHours
+                </td>
+            </tr>
+        }
+    </table>
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |

@@ -106,7 +106,7 @@ namespace StlCollegePrepWebsite.Controllers
                     StudentNumber = s.StudentNumber,
                     FirstName = s.FirstName,
                     LastName = s.LastName,
-                    AwardedGrade = cs.AwardedGrade
+                    AwardedGrade = cs.AwardedGrade,
                 };
                         
             ViewBag.StudentCourseList = studentCourseList.ToList();            

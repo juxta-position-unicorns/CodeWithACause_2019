@@ -214,6 +214,7 @@
     <Compile Include="Models\Period.cs" />
     <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\StudentDetails.cs" />
     <Compile Include="Models\StudentInfo.cs" />
     <Compile Include="Models\StudentSearchResults.cs" />
     <Compile Include="Models\SubjectLevel.cs" />
