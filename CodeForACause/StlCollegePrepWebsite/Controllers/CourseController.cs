@@ -28,26 +28,24 @@ namespace StlCollegePrepWebsite.Controllers
             int? itemsPerPage
             )
         {
-            
-
             IQueryable<CourseInfo> courses =
-            from c in db.Courses
-            join i in db.Instructors on c.InstructorId equals i.UserId into ig
-            select new CourseInfo
-            {
-                CourseId = c.CourseId,
-                InstructorId = c.InstructorId,
-                CourseName = c.CourseName,
-                Subject = c.Subject,
-                Level = c.Level,
-                CreditHours = c.CreditHours,
-                PeriodName = c.PeriodName,
-                StartTime = c.StartTime,
-                EndTime = c.EndTime,
-                Year = c.Year,
-                Semester = c.Semester,
-                InstructorName = ig.FirstOrDefault().Name                
-            };
+                from c in db.Courses
+                join i in db.Instructors on c.InstructorId equals i.UserId into ig
+                select new CourseInfo
+                {
+                    CourseId = c.CourseId,
+                    InstructorId = c.InstructorId,
+                    CourseName = c.CourseName,
+                    Subject = c.Subject,
+                    Level = c.Level,
+                    CreditHours = c.CreditHours,
+                    PeriodName = c.PeriodName,
+                    StartTime = c.StartTime,
+                    EndTime = c.EndTime,
+                    Year = c.Year,
+                    Semester = c.Semester,
+                    InstructorName = ig.FirstOrDefault().Name                
+                };
             
 
             if (!string.IsNullOrWhiteSpace(semester))
@@ -70,10 +68,17 @@ namespace StlCollegePrepWebsite.Controllers
             }
             if (!String.IsNullOrWhiteSpace(search))
             {
-                courses = courses.Where(x => x.CourseName.Contains(search));
+                courses = courses.Where(
+                    x => x.CourseName.Contains(search) ||
+                         x.Subject.Contains(search)
+                );
             }
 
-            courses = courses.OrderBy(x => x.CourseName).ThenBy(x => x.CourseId);
+            courses = courses.OrderByDescending(x => x.Year)
+                             .ThenBy(x => x.Semester)
+                             .ThenBy(x => x.Subject)
+                             .ThenBy(x => x.CourseName)
+                             .ThenBy(x => x.CourseId);
 
             var results = courses.ToPagedList(page ?? 1, itemsPerPage ?? 25);
 
