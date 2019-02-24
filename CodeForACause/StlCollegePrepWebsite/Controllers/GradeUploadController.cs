@@ -50,6 +50,9 @@ namespace StlCollegePrepWebsite.Controllers
                     var students = new List<Student>();
                     var courses = new List<Course>();
 
+                    var courseNames = _db.SubjectLevels.ToList();
+                    var periods = _db.Periods.ToList();
+
                     //Read the contents of CSV file.
                     using (StreamReader sr = new StreamReader(filePath))
                     {
@@ -77,7 +80,7 @@ namespace StlCollegePrepWebsite.Controllers
                                 FinalGrade = ParseGrade(tokens[5]),
                             };
                             grades.Add(grade);
-
+                            
                             var student = new Student
                             {
                                 UserId = grade.RecordId,
@@ -96,6 +99,21 @@ namespace StlCollegePrepWebsite.Controllers
                                 Year = viewModel.Year,
                             };
                             courses.Add(course);
+
+                            var courseName = courseNames.FirstOrDefault(x => x.CourseName == grade.CourseName);
+                            if (courseName != null)
+                            {
+                                course.Subject = courseName.Subject;
+                                course.Level = courseName.Level;
+                                course.CreditHours = courseName.CreditHours;
+                            }
+
+                            var period = periods.FirstOrDefault(x => x.PeriodName == grade.PeriodName);
+                            if (period != null)
+                            {
+                                course.StartTime = period.StartTime;
+                                course.EndTime = period.EndTime;
+                            }
                         }
 
                         viewModel.Duplicates =
