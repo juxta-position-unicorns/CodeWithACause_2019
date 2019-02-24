@@ -96,8 +96,20 @@ namespace StlCollegePrepWebsite.Controllers
         // GET: Course/Details/5
         public ActionResult Details(int? id)
         {
-
-            
+            IQueryable<StudentInfo> studentCourseList =
+                from cs in db.CourseStudents
+                join s in db.Students on cs.StudentId equals s.UserId
+                where cs.CourseId == id
+                orderby s.LastName, s.FirstName, s.StudentNumber
+                select new StudentInfo
+                {
+                    StudentNumber = s.StudentNumber,
+                    FirstName = s.FirstName,
+                    LastName = s.LastName,
+                    AwardedGrade = cs.AwardedGrade
+                };
+                        
+            ViewBag.StudentCourseList = studentCourseList;            
 
             if (id == null)
             {
