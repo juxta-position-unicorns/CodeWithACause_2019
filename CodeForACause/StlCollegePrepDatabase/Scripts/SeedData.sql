@@ -74,7 +74,7 @@ INSERT INTO Instructor (UserId, Name) VALUES (NEWID(), 'Wood')
 INSERT INTO Instructor (UserId, Name) VALUES (NEWID(), 'Basler')
 
 -- Course
-truncate table Course;
+delete Course;
 
  -- Spanish I
 insert into Course (CourseName, Subject, Level, CreditHours,  PeriodName, StartTime, EndTime, Year, Semester) values ('Spanish I', 'Foreign Languages', '1', '.5', 'Period 1', '9:00', '9:53', '2019', 'T2');
