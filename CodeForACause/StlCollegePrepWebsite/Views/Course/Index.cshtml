@@ -5,15 +5,15 @@
 }
 
 <h2>@ViewBag.Title</h2>
-@using (Html.BeginForm("Index", "Course", FormMethod.Get))
+@using (Html.BeginForm("Index", "Course", FormMethod.Get, htmlAttributes: new { @class = "form-inline" }))
 {
     var periods = new SelectList(Model.Periods, "PeriodName", "PeriodName");
     var instructors = new SelectList(Model.Instructors, "UserId", "Name");
 
     <div class="mb-3">
-        @Html.EditorFor(x => x.Search, new { htmlAttributes = new { placeholder = "Search" } })
-        @Html.DropDownListFor(x => x.Period, periods, "(ALL)", new { htmlAttributes = new { @class = "form-control"} })
-        @Html.DropDownListFor(x => x.InstructorId, instructors, "(ALL)", new { htmlAttributes = new { @class = "form-control" } })
+        @Html.EditorFor(x => x.Search, new { htmlAttributes = new { placeholder = "Search", @class = "form-control" } })
+        @Html.DropDownListFor(x => x.Period, periods, "Periods", htmlAttributes: new { @class = "form-control"})
+        @Html.DropDownListFor(x => x.InstructorId, instructors, "Instructors", htmlAttributes: new { @class = "form-control" })
         <input class="btn btn-primary" type="submit" value="Search"/>
     </div>
     

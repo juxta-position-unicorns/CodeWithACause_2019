@@ -31,7 +31,7 @@ namespace StlCollegePrepWebsite.Models
 
         public IEnumerable<Instructor> Instructors { get; set; }
 
-        public IPagedList<Course> Results { get; set; }
+        public IPagedList<CourseInfo> Results { get; set; }
 
     }
 }
