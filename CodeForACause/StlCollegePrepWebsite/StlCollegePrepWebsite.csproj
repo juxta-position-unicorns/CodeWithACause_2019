@@ -203,6 +203,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\CourseInfo.cs" />
     <Compile Include="Models\CourseSearchResults.cs" />
     <Compile Include="Models\CourseStudent.cs" />
     <Compile Include="Models\GradeUploadViewModel.cs" />
