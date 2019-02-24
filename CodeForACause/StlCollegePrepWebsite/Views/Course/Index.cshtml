@@ -82,3 +82,27 @@
 }
 
 </table>
+<div>
+    @Html.PagedListPager(
+        Model.Results,
+        page => Url.Action("Index", new
+        {
+            Search = Model.Search,
+            Semester = Model.Semester,
+            Subject = Model.Subject,
+            Period = Model.Period,
+            InstructorId = Model.InstructorId,
+            SortBy = Model.SortBy,
+            Page = page,
+            ItemsPerPage = Model.Results.PageSize,
+        }),
+        new PagedListRenderOptions
+        {
+            Display = PagedListDisplayMode.IfNeeded,
+            DisplayPageCountAndCurrentLocation = true,
+            DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+            MaximumPageNumbersToDisplay = 5,
+            PageCountAndCurrentLocationFormat = "Page {0} of {1}"
+        }
+    )
+</div>
