@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StlCollegePrepWebsite.Models;
+using PagedList;
 
 namespace StlCollegePrepWebsite.Controllers
 {
@@ -15,9 +16,20 @@ namespace StlCollegePrepWebsite.Controllers
         private CourseDatabase db = new CourseDatabase();
 
         // GET: Student
-        public ActionResult Index()
+        public ActionResult Index(string search, int? page, int? ItemsPerPage)
         {
-            return View(db.Students.ToList());
+            IQueryable<Student> students = db.Students;
+            if (!String.IsNullOrWhiteSpace(search))
+            {
+                students = students.Where(x => x.FirstName.Contains(search) || x.LastName.Contains(search));
+            }
+            var results = students.ToPagedList(PagedList ?? 1, ItemsPerPage ?? 25);
+            var model = new StudentSearchResuts
+            {
+                Search = search,
+                Results = results,
+            };
+            return View("Index", model);
         }
 
         // GET: Student/Details/5
