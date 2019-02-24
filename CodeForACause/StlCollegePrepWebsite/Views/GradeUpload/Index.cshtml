@@ -1,6 +1,6 @@
 ﻿@model StlCollegePrepWebsite.Models.GradeUploadViewModel
 @{
-    ViewBag.Title = "GradeUpload";
+    ViewBag.Title = "Grade Upload";
     
     var semesterList = new SelectList(new string[]
     {
@@ -8,7 +8,7 @@
     });
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm("Index", "GradeUpload", FormMethod.Post,
             new { enctype = "multipart/form-data" }))
@@ -16,8 +16,6 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>Student</h4>
-    <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="form-group">
@@ -46,55 +44,57 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Upload" class="btn btn-default" />
+            <input type="submit" value="Upload" class="btn btn-primary" />
         </div>
     </div>
 </div>
 }
 
-<h2 class="text-warning">CSV files must be in the following format</h2>
-<table class="table">
-    <tr>
-        <th>
-            Student Last Name
-        </th>
-        <th>
-            Student First Name
-        </th>
-        <th>
-            Student Number
-        </th>
-        <th>
-            Class Description
-        </th>
-        <th>
-            Grading Period Description
-        </th>
-        <th>
-            Final Grade
-        </th>
-    </tr>
-    <tr>
-        <td>
-            Doe
-        </td>
-        <td>
-            John
-        </td>
-        <td>
-            1234
-        </td>
-        <td>
-            Geometry A
-        </td>
-        <td>
-            Q2
-        </td>
-        <td>
-            2.14
-        </td>
-    </tr>
-</table>
+<div style="margin: 8em 0;">
+    <h2 class="text-warning">CSV files must be in the following format</h2>
+    <table class="table">
+        <tr>
+            <th>
+                Student Last Name
+            </th>
+            <th>
+                Student First Name
+            </th>
+            <th>
+                Student Number
+            </th>
+            <th>
+                Class Description
+            </th>
+            <th>
+                Grading Period Description
+            </th>
+            <th>
+                Final Grade
+            </th>
+        </tr>
+        <tr>
+            <td>
+                Doe
+            </td>
+            <td>
+                John
+            </td>
+            <td>
+                1234
+            </td>
+            <td>
+                Geometry A
+            </td>
+            <td>
+                Q2
+            </td>
+            <td>
+                2.14
+            </td>
+        </tr>
+    </table>
+</div>
 
 @if (Model.Duplicates.Any())
 {
