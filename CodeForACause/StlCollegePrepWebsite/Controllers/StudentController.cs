@@ -23,8 +23,8 @@ namespace StlCollegePrepWebsite.Controllers
             {
                 students = students.Where(x => x.FirstName.Contains(search) || x.LastName.Contains(search));
             }
-            var results = students.ToPagedList(PagedList ?? 1, ItemsPerPage ?? 25);
-            var model = new StudentSearchResuts
+            var results = students.ToPagedList(page ?? 1, ItemsPerPage ?? 25);
+            var model = new StudentSearchResults
             {
                 Search = search,
                 Results = results,
