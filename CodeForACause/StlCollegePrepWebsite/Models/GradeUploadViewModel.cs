@@ -15,11 +15,16 @@ namespace StlCollegePrepWebsite.Models
 
         [Required]
         public int? Year { get; set; }
+
         [Required]
         public string Semester { get; set; }
+
         [Required]
         [Display(Name = "CSV File")]
         public HttpPostedFileBase PostedFile { get; set; }
+
+        [Display(Name = "Delete all existing grades for this semester")]
+        public bool DeleteGradesForSemester { get; set; }
 
         public List<int> Duplicates { get; set; }
     }

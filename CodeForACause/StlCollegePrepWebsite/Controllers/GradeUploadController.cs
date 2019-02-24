@@ -137,6 +137,17 @@ namespace StlCollegePrepWebsite.Controllers
                         students = students.GroupBy(x => new { x.StudentNumber, x.FirstName, x.LastName }).Select(g => g.FirstOrDefault()).ToList();
                         courses = courses.GroupBy(x => new { x.CourseName, x.PeriodName }).Select(g => g.FirstOrDefault()).ToList();
 
+                        if (viewModel.DeleteGradesForSemester)
+                        {
+                            var existingGrades = (
+                                from cs in _db.CourseStudents
+                                join c in _db.Courses on cs.CourseId equals c.CourseId
+                                where c.Year == viewModel.Year && c.Semester == viewModel.Semester
+                                select cs
+                            ).ToList();
+                            _db.CourseStudents.RemoveRange(existingGrades);
+                        }
+
                         var existingStudents = _db.Students.ToList();
                         var existingCourses = _db.Courses.Where(x => x.Year == viewModel.Year && x.Semester == viewModel.Semester).ToList();
                         var newStudents = students.Except(existingStudents).ToList();
