@@ -76,11 +76,11 @@ namespace StlCollegePrepWebsite.Controllers
                             {
                                 RowNumber = rowNumber,
                                 RecordId = Guid.NewGuid().ToString(),
-                                LastName = tokens[0],
-                                FirstName = tokens[1],
-                                StudentNumber = tokens[2],
-                                CourseName = tokens[3],
-                                PeriodName = tokens[4],
+                                LastName = tokens[0].Trim(),
+                                FirstName = tokens[1].Trim(),
+                                StudentNumber = tokens[2].Trim(),
+                                CourseName = tokens[3].Trim(),
+                                PeriodName = tokens[4].Trim(),
                                 FinalGrade = ParseGrade(tokens[5]),
                             };
                             grades.Add(grade);
@@ -105,7 +105,9 @@ namespace StlCollegePrepWebsite.Controllers
                             };
                             courses.Add(course);
 
-                            var courseName = courseNames.FirstOrDefault(x => x.CourseName == grade.CourseName);
+                            var courseName = courseNames.FirstOrDefault(
+                                x => x.CourseName == grade.CourseName || 
+                                     x.CourseName == grade.CourseName.Substring(0, grade.CourseName.Length - 2));
                             if (courseName != null)
                             {
                                 course.Subject = courseName.Subject;
@@ -201,6 +203,7 @@ namespace StlCollegePrepWebsite.Controllers
 
         private decimal ParseGrade(string grade)
         {
+            // TODO: handle letter grades
             return decimal.Parse(grade);
         }
     }
