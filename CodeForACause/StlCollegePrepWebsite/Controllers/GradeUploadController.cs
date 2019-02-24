@@ -162,6 +162,10 @@ namespace StlCollegePrepWebsite.Controllers
             }
             catch (Exception ex)
             {
+                while (ex.Message == "An error occurred while updating the entries. See the inner exception for details.")
+                {
+                    ex = ex.InnerException;
+                }
                 ModelState.AddModelError("PostedFile", ex.Message);
             }
 
