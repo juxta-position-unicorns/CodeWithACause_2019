@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>/StlCollegePrep/DataSource</DataSourceReference>
+      <CommandText>;WITH CreditHours AS (
+    SELECT cs.StudentId, c.[Subject], SUM(c.CreditHours) AS CreditHours
+    FROM CourseStudent cs
+    INNER JOIN Course c ON c.CourseId = cs.CourseId
+    WHERE cs.AwardedGrade &gt;= 2
+    GROUP BY cs.StudentId, c.[Subject]
+)
+SELECT
+     s.UserId
+    ,s.LastName
+    ,s.FirstName
+    ,s.StudentNumber
+    ,ISNULL((SELECT x.CreditHours FROM CreditHours x WHERE x.StudentId = s.UserId and x.[Subject] = 'English'), 0) AS English
+    ,ISNULL((SELECT x.CreditHours FROM CreditHours x WHERE x.StudentId = s.UserId and x.[Subject] = 'Math'), 0) AS Math
+    ,ISNULL((SELECT x.CreditHours FROM CreditHours x WHERE x.StudentId = s.UserId and x.[Subject] = 'Science'), 0) AS Science
+    ,ISNULL((SELECT x.CreditHours FROM CreditHours x WHERE x.StudentId = s.UserId and x.[Subject] = 'Social Studies'), 0) AS SocialStudies
+    ,ISNULL((SELECT x.CreditHours FROM CreditHours x WHERE x.StudentId = s.UserId and x.[Subject] = 'Practical Arts'), 0) AS PracticalArts
+    ,ISNULL((SELECT x.CreditHours FROM CreditHours x WHERE x.StudentId = s.UserId and x.[Subject] = 'Fine Arts'), 0) AS FineArts
+    ,ISNULL((SELECT x.CreditHours FROM CreditHours x WHERE x.StudentId = s.UserId and x.[Subject] = 'Personal Finance'), 0) AS PersonalFinance
+    ,ISNULL((SELECT x.CreditHours FROM CreditHours x WHERE x.StudentId = s.UserId and x.[Subject] = 'Foreign Language'), 0) AS ForeignLanguage
+    ,ISNULL((SELECT x.CreditHours FROM CreditHours x WHERE x.StudentId = s.UserId and x.[Subject] = 'Physical Education'), 0) AS PhysicalEducation
+    ,ISNULL((SELECT x.CreditHours FROM CreditHours x WHERE x.StudentId = s.UserId and x.[Subject] = 'Health'), 0) AS Health
+    ,ISNULL((SELECT x.CreditHours FROM CreditHours x WHERE x.StudentId = s.UserId and x.[Subject] = 'Elective'), 0) AS Elective
+FROM Student s</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="UserId">
+        <DataField>UserId</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="LastName">
+        <DataField>LastName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="FirstName">
+        <DataField>FirstName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="StudentNumber">
+        <DataField>StudentNumber</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="English">
+        <DataField>English</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="Math">
+        <DataField>Math</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="Science">
+        <DataField>Science</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="SocialStudies">
+        <DataField>SocialStudies</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="PracticalArts">
+        <DataField>PracticalArts</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="FineArts">
+        <DataField>FineArts</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="PersonalFinance">
+        <DataField>PersonalFinance</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="ForeignLanguage">
+        <DataField>ForeignLanguage</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="PhysicalEducation">
+        <DataField>PhysicalEducation</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="Health">
+        <DataField>Health</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="Elective">
+        <DataField>Elective</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+  <rd:ReportServerUrl>http://localhost/ReportServer</rd:ReportServerUrl>
+</SharedDataSet>

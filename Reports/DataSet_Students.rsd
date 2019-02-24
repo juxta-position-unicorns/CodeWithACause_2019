@@ -10,6 +10,8 @@
   ,Student.StudentNumber
   ,Student.SchoolName
   ,CONCAT(LastName, ', ', FirstName, ' (', SchoolName, ' ', StudentNumber, ')') AS Summary
+  ,IEP
+  ,GraduateBy
 FROM
   Student
 ORDER BY 
@@ -39,6 +41,14 @@ ORDER BY
       </Field>
       <Field Name="Summary">
         <DataField>Summary</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="IEP">
+        <DataField>IEP</DataField>
+        <rd:TypeName>System.Boolean</rd:TypeName>
+      </Field>
+      <Field Name="GraduateBy">
+        <DataField>GraduateBy</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
     </Fields>
