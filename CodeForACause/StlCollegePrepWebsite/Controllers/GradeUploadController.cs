@@ -112,7 +112,7 @@ namespace StlCollegePrepWebsite.Controllers
                             {
                                 course.Subject = courseName.Subject;
                                 course.Level = courseName.Level;
-                                course.CreditHours = courseName.CreditHours;
+                                //course.CreditHours = courseName.CreditHours;
                             }
 
                             var period = periods.FirstOrDefault(x => x.PeriodName == grade.PeriodName);
