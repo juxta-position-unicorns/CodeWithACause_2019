@@ -134,7 +134,7 @@ namespace StlCollegePrepWebsite.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CourseId,InstructorId,Subject,Level,CreditHours,StartTime,EndTime,Year,Semester")] Course course)
+        public ActionResult Create([Bind(Include = "CourseId,InstructorId,CourseName,Subject,Level,CreditHours,PeriodName,StartTime,EndTime,Year,Semester")] Course course)
         {
             if (ModelState.IsValid)
             {
@@ -166,7 +166,7 @@ namespace StlCollegePrepWebsite.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CourseId,InstructorId,Subject,Level,CreditHours,StartTime,EndTime,Year,Semester")] Course course)
+        public ActionResult Edit([Bind(Include = "CourseId,InstructorId,CourseName,Subject,Level,CreditHours,PeriodName,StartTime,EndTime,Year,Semester")] Course course)
         {
             if (ModelState.IsValid)
             {
